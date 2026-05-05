@@ -60,7 +60,7 @@ if (type === 'doc') {
       <ul class="directory-list">
         {children.map((child: any) => (
           <li class="directory-item">
-            <a href={`/${normalizeSlug(child.slug)}`} class="directory-link">
+            <a href={`${import.meta.env.BASE_URL === '/' ? '' : import.meta.env.BASE_URL}/${normalizeSlug(child.slug)}`} class="directory-link">
               {child.data.title || toTitleCase(child.slug.split('/').pop() || '')}
             </a>
             {child.data.description && (

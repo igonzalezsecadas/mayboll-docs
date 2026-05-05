@@ -1,6 +1,33 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import maybollConfig from './mayboll.config.mjs';
+import { visit } from 'unist-util-visit';
+
+function remarkLinkRewrite() {
+  return (tree) => {
+    visit(tree, 'link', (node) => {
+      const url = node.url;
+      if (!url || typeof url !== 'string') return;
+
+      // Skip external URLs (http:, https:, mailto:, etc.)
+      if (/^[a-z][a-z0-9+.-]*:/i.test(url)) return;
+
+      // Skip anchor-only links
+      if (url.startsWith('#')) return;
+
+      // Skip non-markdown links
+      if (!/\.mdx?$/i.test(url)) return;
+
+      // Rewrite .md/.mdx to directory-style URL with trailing slash
+      let rewritten = url.replace(/\.mdx?$/i, '') + '/';
+
+      // index.md resolves to the directory itself, not /index/
+      rewritten = rewritten.replace(/\/?index\/$/, '/');
+
+      node.url = rewritten;
+    });
+  };
+}
 
 const cssVariableTheme = {
   name: 'css-variables',
@@ -69,6 +96,7 @@ const cssVariableTheme = {
 export default defineConfig({
   integrations: [mdx()],
   markdown: {
+    remarkPlugins: [remarkLinkRewrite],
     shikiConfig: {
       theme: cssVariableTheme,
       wrap: true,
