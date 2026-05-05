@@ -13,16 +13,16 @@ After completing this slice, a user can:
 
 ## Acceptance criteria
 
-- [ ] On viewports below a defined breakpoint (e.g., 768px), the left sidebar is hidden by default
-- [ ] A minimal sticky top bar is present on mobile containing:
+- [x] On viewports below a defined breakpoint (e.g., 768px), the left sidebar is hidden by default
+- [x] A minimal sticky top bar is present on mobile containing:
   - A hamburger menu button that toggles the sidebar overlay
   - The project name (from `mayboll.config.mjs`)
   - The dark/light mode toggle
-- [ ] Tapping the hamburger menu opens the left sidebar as a full-height overlay with a close button or tap-outside-to-close behavior
-- [ ] The right sidebar (TOC) is hidden on mobile or collapsed into a dropdown/disclosure pattern (either approach is acceptable; choose the simpler one)
-- [ ] Main content uses comfortable font sizes and readable line lengths on small screens
-- [ ] Code blocks are horizontally scrollable on mobile instead of breaking layout
-- [ ] The search box remains accessible on mobile (either in the top bar or inside the sidebar overlay)
+- [x] Tapping the hamburger menu opens the left sidebar as a full-height overlay with a close button or tap-outside-to-close behavior
+- [x] The right sidebar (TOC) is hidden on mobile or collapsed into a dropdown/disclosure pattern (either approach is acceptable; choose the simpler one)
+- [x] Main content uses comfortable font sizes and readable line lengths on small screens
+- [x] Code blocks are horizontally scrollable on mobile instead of breaking layout
+- [x] The search box remains accessible on mobile (either in the top bar or inside the sidebar overlay)
 
 ## Blocked by
 
