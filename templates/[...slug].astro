@@ -38,9 +38,11 @@ const { doc, type, children, title } = Astro.props;
 const currentSlug = type === 'doc' ? normalizeSlug(doc.slug) : (Astro.params.slug as string);
 
 let Content;
+let headings: { depth: number; slug: string; text: string }[] = [];
 if (type === 'doc') {
   const rendered = await doc.render();
   Content = rendered.Content;
+  headings = rendered.headings;
 }
 ---
 
@@ -48,6 +50,7 @@ if (type === 'doc') {
   title={type === 'doc' ? doc.data.title : title}
   description={type === 'doc' ? doc.data.description : undefined}
   slug={currentSlug}
+  headings={headings}
 >
   {type === 'doc' && Content ? (
     <Content />

@@ -9,9 +9,9 @@ if (!doc) {
 if (import.meta.env.PROD && doc.data.draft) {
   return new Response(null, { status: 404 });
 }
-const { Content } = await doc.render();
+const { Content, headings } = await doc.render();
 ---
 
-<DocLayout title={doc.data.title} description={doc.data.description} slug="">
+<DocLayout title={doc.data.title} description={doc.data.description} slug="" headings={headings}>
   <Content />
 </DocLayout>

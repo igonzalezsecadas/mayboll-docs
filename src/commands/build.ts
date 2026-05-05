@@ -18,5 +18,12 @@ export function build() {
     process.exit(1);
   }
 
+  console.log('Indexing content for search...');
+  try {
+    execSync('npx pagefind --site dist', { cwd: docsPath, stdio: 'inherit' });
+  } catch {
+    console.error('Warning: Pagefind indexing failed. Search may not work.');
+  }
+
   console.log('Build complete. Output is in ./docs/dist/');
 }

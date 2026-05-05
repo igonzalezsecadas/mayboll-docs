@@ -14,13 +14,13 @@ After completing this slice, a user can:
 
 ## Acceptance criteria
 
-- [ ] Pagefind is integrated: `astro build` triggers a post-build Pagefind index generation step; the search UI is rendered as an Astro Island component in the layout
-- [ ] The search box is accessible from the top bar or sidebar and returns ranked results with page titles and snippets
-- [ ] The right sidebar displays H2 and H3 headings extracted from the current page's content at build time
-- [ ] TOC items are anchor links that jump to the corresponding heading in the main content
-- [ ] Code blocks are syntax-highlighted at build time using Shiki (Astro's default)
-- [ ] Shiki theme configuration outputs CSS-variable-based colors (e.g., `color: var(--shiki-token-keyword)`) so that code block colors adapt when the user toggles dark/light mode
-- [ ] Every code block is rendered with a small "Copy" button (Astro Island with vanilla JS); clicking it copies the raw code to the clipboard and shows brief visual feedback
+- [x] Pagefind is integrated: `astro build` triggers a post-build Pagefind index generation step; the search UI is rendered as an Astro Island component in the layout
+- [x] The search box is accessible from the top bar or sidebar and returns ranked results with page titles and snippets
+- [x] The right sidebar displays H2 and H3 headings extracted from the current page's content at build time
+- [x] TOC items are anchor links that jump to the corresponding heading in the main content
+- [x] Code blocks are syntax-highlighted at build time using Shiki (Astro's default)
+- [x] Shiki theme configuration outputs CSS-variable-based colors (e.g., `color: var(--shiki-token-keyword)`) so that code block colors adapt when the user toggles dark/light mode
+- [x] Every code block is rendered with a small "Copy" button (Astro Island with vanilla JS); clicking it copies the raw code to the clipboard and shows brief visual feedback
 
 ## Blocked by
 

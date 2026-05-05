@@ -39,6 +39,7 @@ export function init(flat: boolean = false) {
   fs.mkdirSync(contentPath, { recursive: true });
 
   copyTemplate('docs-package.json', path.join(docsPath, 'package.json'));
+  copyTemplate('tsconfig.json', path.join(docsPath, 'tsconfig.json'));
   copyTemplate('astro.config.mjs', path.join(docsPath, 'astro.config.mjs'));
   copyTemplate('mayboll.config.mjs', path.join(docsPath, 'mayboll.config.mjs'), {
     '{{FLAT_SIDEBAR}}': flat ? 'true' : 'false',
@@ -49,6 +50,8 @@ export function init(flat: boolean = false) {
   copyTemplate('content.config.ts', path.join(docsPath, 'src', 'content', 'config.ts'));
   copyTemplate('lib/sidebar.ts', path.join(docsPath, 'src', 'lib', 'sidebar.ts'));
   copyTemplate('components/SidebarTree.astro', path.join(docsPath, 'src', 'components', 'SidebarTree.astro'));
+  copyTemplate('components/Search.astro', path.join(docsPath, 'src', 'components', 'Search.astro'));
+  copyTemplate('components/CopyButton.astro', path.join(docsPath, 'src', 'components', 'CopyButton.astro'));
 
   const contentDocsPath = path.join(docsPath, 'src', 'content', 'docs');
   const relativeContentPath = path.relative(path.dirname(contentDocsPath), contentPath);
