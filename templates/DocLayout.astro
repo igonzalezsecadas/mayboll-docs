@@ -1,9 +1,14 @@
 ---
+import { getSidebarTree } from '../lib/sidebar.js';
+import SidebarTree from '../components/SidebarTree.astro';
+
 interface Props {
   title?: string;
+  slug?: string;
 }
-const { title } = Astro.props;
+const { title, slug } = Astro.props;
 const pageTitle = title ? `${title} — Mayboll Docs` : 'Mayboll Docs';
+const sidebarTree = await getSidebarTree();
 ---
 
 <!DOCTYPE html>
@@ -93,6 +98,9 @@ const pageTitle = title ? `${title} — Mayboll Docs` : 'Mayboll Docs';
     <div class="page">
       <aside class="sidebar-left" aria-label="Navigation">
         <div class="sidebar-brand">Mayboll Docs</div>
+        <nav class="sidebar-nav">
+          <SidebarTree nodes={sidebarTree} currentSlug={slug || ''} />
+        </nav>
       </aside>
 
       <main class="main">
@@ -145,12 +153,23 @@ const pageTitle = title ? `${title} — Mayboll Docs` : 'Mayboll Docs';
         background: var(--sidebar-bg);
         border-right: 1px solid var(--border);
         padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
       }
 
       .sidebar-brand {
         font-weight: 700;
         font-size: 1.125rem;
         color: var(--text);
+        flex-shrink: 0;
+      }
+
+      .sidebar-nav {
+        margin-top: 1.5rem;
+        flex: 1;
+        overflow-y: auto;
+        min-height: 0;
       }
 
       .main {

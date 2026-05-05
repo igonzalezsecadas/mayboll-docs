@@ -45,6 +45,8 @@ export function init() {
   copyTemplate('[...slug].astro', path.join(docsPath, 'src', 'pages', '[...slug].astro'));
   copyTemplate('index.astro', path.join(docsPath, 'src', 'pages', 'index.astro'));
   copyTemplate('content.config.ts', path.join(docsPath, 'src', 'content', 'config.ts'));
+  copyTemplate('lib/sidebar.ts', path.join(docsPath, 'src', 'lib', 'sidebar.ts'));
+  copyTemplate('components/SidebarTree.astro', path.join(docsPath, 'src', 'components', 'SidebarTree.astro'));
 
   const contentDocsPath = path.join(docsPath, 'src', 'content', 'docs');
   const relativeContentPath = path.relative(path.dirname(contentDocsPath), contentPath);

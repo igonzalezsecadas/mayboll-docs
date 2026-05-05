@@ -14,14 +14,14 @@ After completing this slice, a user can:
 
 ## Acceptance criteria
 
-- [ ] Any `.md` or `.mdx` file under `docs/content/` (except `index.md` at root) is rendered as a routable page
-- [ ] A build-time script scans `docs/content/` and generates a `sidebar.json` (or equivalent data structure) consumed by the layout component
-- [ ] The left sidebar reflects the directory tree structure: directories are expandable sections, files are leaf links
-- [ ] Files and directories are sorted alphabetically by default
-- [ ] File names are converted to page titles via kebab-case → Title Case (e.g., `getting-started.md` → "Getting Started")
-- [ ] If a directory contains children but no `index.md`, a virtual index page is generated at build time listing all child pages with their titles and links
-- [ ] The root `docs/content/index.md` remains the homepage and does not appear in the sidebar
-- [ ] Desktop layout renders: fixed left sidebar (navigation) + scrollable main content area + right sidebar (static TOC placeholder — content comes in slice 4)
+- [x] Any `.md` or `.mdx` file under `docs/content/` (except `index.md` at root) is rendered as a routable page
+- [x] A build-time script scans `docs/content/` and generates a `sidebar.json` (or equivalent data structure) consumed by the layout component
+- [x] The left sidebar reflects the directory tree structure: directories are expandable sections, files are leaf links
+- [x] Files and directories are sorted alphabetically by default
+- [x] File names are converted to page titles via kebab-case → Title Case (e.g., `getting-started.md` → "Getting Started")
+- [x] If a directory contains children but no `index.md`, a virtual index page is generated at build time listing all child pages with their titles and links
+- [x] The root `docs/content/index.md` remains the homepage and does not appear in the sidebar
+- [x] Desktop layout renders: fixed left sidebar (navigation) + scrollable main content area + right sidebar (static TOC placeholder — content comes in slice 4)
 
 ## Blocked by
 

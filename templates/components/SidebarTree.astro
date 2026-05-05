@@ -1,0 +1,106 @@
+---
+import type { SidebarNode } from '../lib/sidebar.js';
+import { toTitleCase } from '../lib/sidebar.js';
+
+interface Props {
+  nodes: SidebarNode[];
+  currentSlug?: string;
+}
+
+const { nodes, currentSlug } = Astro.props;
+---
+
+<ul class="sidebar-tree">
+  {nodes.map((node) => (
+    <li class={node.type === 'directory' ? 'sidebar-directory' : 'sidebar-file'}>
+      {node.type === 'file' ? (
+        <a
+          href={`/${node.slug}`}
+          class:list={['sidebar-link', { 'sidebar-active': currentSlug === node.slug }]}
+        >
+          {node.title || toTitleCase(node.name)}
+        </a>
+      ) : (
+        <details class="sidebar-details" open>
+          <summary class="sidebar-summary">{toTitleCase(node.name)}</summary>
+          <Astro.self nodes={node.children || []} currentSlug={currentSlug} />
+        </details>
+      )}
+    </li>
+  ))}
+</ul>
+
+<style>
+  .sidebar-tree {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .sidebar-tree :global(ul) {
+    list-style: none;
+    margin: 0;
+    padding-left: 0.75rem;
+  }
+
+  .sidebar-file,
+  .sidebar-directory {
+    margin: 0.125rem 0;
+  }
+
+  .sidebar-link {
+    display: block;
+    padding: 0.35rem 0.5rem;
+    border-radius: 0.25rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.15s, background 0.15s;
+  }
+
+  .sidebar-link:hover {
+    color: var(--text);
+    background: var(--code-bg);
+  }
+
+  .sidebar-active {
+    color: var(--accent);
+    font-weight: 500;
+    background: var(--code-bg);
+  }
+
+  .sidebar-details {
+    margin: 0;
+  }
+
+  .sidebar-summary {
+    padding: 0.35rem 0.5rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text);
+    user-select: none;
+    list-style: none;
+  }
+
+  .sidebar-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .sidebar-summary::before {
+    content: '▸';
+    display: inline-block;
+    margin-right: 0.35rem;
+    font-size: 0.75rem;
+    transition: transform 0.15s;
+  }
+
+  .sidebar-details[open] > .sidebar-summary::before {
+    transform: rotate(90deg);
+  }
+
+  .sidebar-summary:hover {
+    background: var(--code-bg);
+  }
+</style>
