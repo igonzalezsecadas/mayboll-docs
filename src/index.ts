@@ -15,7 +15,8 @@ program
 program
   .command('init')
   .description('Scaffold a new documentation site in ./docs/')
-  .action(init);
+  .option('--flat', 'Flatten sidebar hierarchy', false)
+  .action((options) => init(options.flat));
 
 program
   .command('dev')

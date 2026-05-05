@@ -6,9 +6,12 @@ const doc = await getEntry('docs', 'index');
 if (!doc) {
   throw new Error('No index.md found in docs/content/. Create docs/content/index.md to get started.');
 }
+if (import.meta.env.PROD && doc.data.draft) {
+  return new Response(null, { status: 404 });
+}
 const { Content } = await doc.render();
 ---
 
-<DocLayout title={doc.data.title} slug="">
+<DocLayout title={doc.data.title} description={doc.data.description} slug="">
   <Content />
 </DocLayout>

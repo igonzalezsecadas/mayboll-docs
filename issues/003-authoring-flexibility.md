@@ -15,20 +15,20 @@ After completing this slice, a user can:
 
 ## Acceptance criteria
 
-- [ ] Frontmatter fields are supported and behave as follows:
+- [x] Frontmatter fields are supported and behave as follows:
   - `title` (string): overrides the auto-derived page title
   - `description` (string): used for `<meta name="description">`
   - `order` (number, default 0): overrides alphabetical sorting within a directory; lower values appear first
   - `draft` (boolean, default false): when `true`, the page is excluded from production builds but visible in development
   - `sidebar_label` (string): overrides the title shown in the sidebar for this page only
-- [ ] `.mdx` files are supported via `@astrojs/mdx` and render through the same layout as `.md` files
-- [ ] `mayboll.config.mjs` is read at build time and its values are consumed by the layout/theme:
+- [x] `.mdx` files are supported via `@astrojs/mdx` and render through the same layout as `.md` files
+- [x] `mayboll.config.mjs` is read at build time and its values are consumed by the layout/theme:
   - `projectName` (string)
   - `logo` (string, URL or path)
   - `accentColor` (string, CSS color value)
   - `base` (string, optional override for Astro `base` config)
-- [ ] `mayboll-docs init --flat` scaffolds the project so that all pages appear as top-level sidebar items, ignoring directory nesting in the sidebar (directory nesting on disk and in URLs is preserved)
-- [ ] Pages marked `draft: true` return 404 in production builds but render normally in `mayboll-docs dev`
+- [x] `mayboll-docs init --flat` scaffolds the project so that all pages appear as top-level sidebar items, ignoring directory nesting in the sidebar (directory nesting on disk and in URLs is preserved)
+- [x] Pages marked `draft: true` return 404 in production builds but render normally in `mayboll-docs dev`
 
 ## Blocked by
 

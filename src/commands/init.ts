@@ -23,7 +23,7 @@ function copyTemplate(templateName: string, destPath: string, replacements?: Rec
   fs.writeFileSync(destPath, content);
 }
 
-export function init() {
+export function init(flat: boolean = false) {
   const cwd = process.cwd();
   const docsPath = path.join(cwd, DOCS_DIR);
   const contentPath = path.join(cwd, CONTENT_DIR);
@@ -40,7 +40,9 @@ export function init() {
 
   copyTemplate('docs-package.json', path.join(docsPath, 'package.json'));
   copyTemplate('astro.config.mjs', path.join(docsPath, 'astro.config.mjs'));
-  copyTemplate('mayboll.config.mjs', path.join(docsPath, 'mayboll.config.mjs'));
+  copyTemplate('mayboll.config.mjs', path.join(docsPath, 'mayboll.config.mjs'), {
+    '{{FLAT_SIDEBAR}}': flat ? 'true' : 'false',
+  });
   copyTemplate('DocLayout.astro', path.join(docsPath, 'src', 'layouts', 'DocLayout.astro'));
   copyTemplate('[...slug].astro', path.join(docsPath, 'src', 'pages', '[...slug].astro'));
   copyTemplate('index.astro', path.join(docsPath, 'src', 'pages', 'index.astro'));

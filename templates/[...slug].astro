@@ -5,7 +5,11 @@ import { normalizeSlug, toTitleCase, getDirectoryIndexes } from '../lib/sidebar.
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
-  const pages = docs.filter((doc) => doc.slug !== 'index');
+  const pages = docs.filter((doc) => {
+    if (doc.slug === 'index') return false;
+    if (import.meta.env.PROD && doc.data.draft) return false;
+    return true;
+  });
 
   const filePaths = pages.map((doc) => ({
     params: { slug: normalizeSlug(doc.slug) },
@@ -40,7 +44,11 @@ if (type === 'doc') {
 }
 ---
 
-<DocLayout title={type === 'doc' ? doc.data.title : title} slug={currentSlug}>
+<DocLayout
+  title={type === 'doc' ? doc.data.title : title}
+  description={type === 'doc' ? doc.data.description : undefined}
+  slug={currentSlug}
+>
   {type === 'doc' && Content ? (
     <Content />
   ) : (

@@ -3,4 +3,5 @@ export default {
   logo: '',
   accentColor: '#3b82f6',
   base: '',
+  flatSidebar: {{FLAT_SIDEBAR}},
 };
