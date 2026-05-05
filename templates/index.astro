@@ -1,0 +1,14 @@
+---
+import { getEntry } from 'astro:content';
+import DocLayout from '../layouts/DocLayout.astro';
+
+const doc = await getEntry('docs', 'index');
+if (!doc) {
+  throw new Error('No index.md found in docs/content/. Create docs/content/index.md to get started.');
+}
+const { Content } = await doc.render();
+---
+
+<DocLayout title={doc.data.title}>
+  <Content />
+</DocLayout>
