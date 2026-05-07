@@ -1,0 +1,112 @@
+---
+import { getCollection } from 'astro:content';
+import DocLayout from '../layouts/DocLayout.astro';
+import { normalizeSlug, toTitleCase, getDirectoryIndexes } from '../lib/sidebar.js';
+
+export async function getStaticPaths() {
+  const docs = await getCollection('docs');
+  const pages = docs.filter((doc) => {
+    if (doc.slug === 'index') return false;
+    if (import.meta.env.PROD && doc.data.draft) return false;
+    return true;
+  });
+
+  const filePaths = pages.map((doc) => ({
+    params: { slug: normalizeSlug(doc.slug) },
+    props: { doc, type: 'doc' as const },
+  }));
+
+  const dirPaths = getDirectoryIndexes(docs);
+
+  const allPaths = [...filePaths, ...dirPaths.map((d) => ({
+    params: { slug: d.slug },
+    props: { type: d.type, children: d.children, title: d.title },
+  }))];
+
+  // Deduplicate: file paths take precedence over directory paths
+  const seen = new Set<string>();
+  const uniquePaths = allPaths.filter((p) => {
+    if (seen.has(p.params.slug)) return false;
+    seen.add(p.params.slug);
+    return true;
+  });
+
+  return uniquePaths;
+}
+
+const { doc, type, children, title } = Astro.props;
+const currentSlug = type === 'doc' ? normalizeSlug(doc.slug) : (Astro.params.slug as string);
+
+let Content;
+let headings: { depth: number; slug: string; text: string }[] = [];
+if (type === 'doc') {
+  const rendered = await doc.render();
+  Content = rendered.Content;
+  headings = rendered.headings;
+}
+---
+
+<DocLayout
+  title={type === 'doc' ? doc.data.title : title}
+  description={type === 'doc' ? doc.data.description : undefined}
+  slug={currentSlug}
+  headings={headings}
+>
+  {type === 'doc' && Content ? (
+    <Content />
+  ) : (
+    <>
+      <h1>{title}</h1>
+      <ul class="directory-list">
+        {children.map((child: any) => (
+          <li class="directory-item">
+            <a href={`${import.meta.env.BASE_URL === '/' ? '' : import.meta.env.BASE_URL}/${normalizeSlug(child.slug)}`} class="directory-link">
+              {child.data.title || toTitleCase(child.slug.split('/').pop() || '')}
+            </a>
+            {child.data.description && (
+              <p class="directory-desc">{child.data.description}</p>
+            )}
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+</DocLayout>
+
+<style>
+  .directory-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+  }
+
+  .directory-item {
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .directory-item:hover {
+    border-color: var(--accent);
+    background: var(--code-bg);
+  }
+
+  .directory-link {
+    font-weight: 500;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 1.1rem;
+  }
+
+  .directory-link:hover {
+    color: var(--accent);
+  }
+
+  .directory-desc {
+    margin: 0.25rem 0 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+</style>
