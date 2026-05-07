@@ -3,7 +3,7 @@ title: Welcome
 description: Documentation for Mayboll Docs — a CLI tool that generates static documentation sites from Markdown files.
 ---
 
-# Welcome to Mayboll Docs
+# Welcome to mayboll-docs
 
 Mayboll Docs is a CLI tool that turns a directory of Markdown (or MDX) files into a polished, static documentation site. It scaffolds a pre-configured Astro project so you never have to wire up sidebar generation, dark mode, syntax highlighting, search, or GitHub Pages deployment by hand.
 
